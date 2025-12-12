@@ -1,7 +1,7 @@
-import { IsNotEmpty } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { IsNotEmpty } from 'class-validator';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: "tb_imoveis" })
+@Entity({ name: 'tb_imoveis' })
 export class Imovel {
 
     @PrimaryGeneratedColumn()
@@ -20,7 +20,7 @@ export class Imovel {
     rua: string
 
     @IsNotEmpty()
-    @Column({ type: "int", nullable: false })
+    @Column({ type: 'int', nullable: false })
     numero: number
 
     @IsNotEmpty()
@@ -28,6 +28,6 @@ export class Imovel {
     tipoImovel: string
 
     @IsNotEmpty()
-    @Column({ type: "decimal", precision: 10, scale: 2, nullable: false })
+    @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
     areaConstruida: number
 }
