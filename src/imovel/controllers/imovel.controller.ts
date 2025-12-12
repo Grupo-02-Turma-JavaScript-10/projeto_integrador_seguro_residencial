@@ -1,6 +1,7 @@
-import {
+import { 
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -38,5 +39,12 @@ export class ImovelController {
   @HttpCode(HttpStatus.OK)
   update(@Body() imovel: Imovel): Promise<Imovel> {
     return this.imovelService.update(imovel);
+  }
+
+  // NOVO MÉTODO DELETE
+  @Delete('/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.imovelService.delete(id);
   }
 }

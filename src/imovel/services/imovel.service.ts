@@ -28,13 +28,26 @@ export class ImovelService {
   }
 
   async create(imovel: Imovel): Promise<Imovel> {
-    // await this.planoService.findById(imovel.plano.id);
     return await this.imovelRepository.save(imovel);
   }
 
   async update(imovel: Imovel): Promise<Imovel> {
     await this.findById(imovel.id);
-    // await this.planoService.findById(imovel.plano.id);
     return await this.imovelRepository.save(imovel);
+  }
+
+  async delete(id: number): Promise<void> {
+    const imovel = await this.imovelRepository.findOne({
+      where: { id },
+    });
+
+    if (!imovel) {
+      throw new HttpException(
+        'Imóvel não encontrado!',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    await this.imovelRepository.delete(id);
   }
 }
