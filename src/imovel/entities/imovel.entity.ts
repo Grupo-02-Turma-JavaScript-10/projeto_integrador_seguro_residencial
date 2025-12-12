@@ -1,5 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Plano } from '../../plano/entities/plano.entity';
 
 @Entity({ name: 'tb_imoveis' })
 export class Imovel {
@@ -29,4 +30,9 @@ export class Imovel {
   @IsNotEmpty()
   @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
   areaConstruida: number;
+
+  @ManyToOne(() => Plano, (plano) => plano.imovel, {
+    onDelete: 'CASCADE',
+  })
+  plano: Plano;
 }
