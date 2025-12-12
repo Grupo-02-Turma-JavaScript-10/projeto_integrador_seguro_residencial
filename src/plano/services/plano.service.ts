@@ -1,4 +1,4 @@
-import { HttpCode, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { DeleteResult, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Plano } from '../entities/plano.entity';
@@ -16,14 +16,13 @@ export class PlanoService {
         imovel: true,
       },
     });
-  } 
+  }
 
   async findById(id: number): Promise<Plano> {
-
     const plano = await this.planoRepository.findOne({
       where: {
-        id
-      }
+        id,
+      },
     });
 
     if (!plano)
@@ -37,7 +36,7 @@ export class PlanoService {
   }
 
   async update(plano: Plano): Promise<Plano> {
-    await this.findById(plano.id)
+    await this.findById(plano.id);
     return await this.planoRepository.save(plano);
   }
 

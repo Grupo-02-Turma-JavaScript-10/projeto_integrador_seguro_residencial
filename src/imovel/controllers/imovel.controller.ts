@@ -42,7 +42,6 @@ export class ImovelController {
     return this.imovelService.update(imovel);
   }
 
-  // NOVO MÉTODO DELETE
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
