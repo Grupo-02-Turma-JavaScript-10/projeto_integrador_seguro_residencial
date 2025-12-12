@@ -3,6 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Imovel } from './imovel/entities/imovel.entity';
 import { ImovelModule } from './imovel/imovel.module';
+import { PlanoModule } from './plano/plano.module';
+import { Plano } from './plano/entities/plano.entity';
 
 @Module({
   imports: [
@@ -19,11 +21,12 @@ import { ImovelModule } from './imovel/imovel.module';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [Imovel],
+        entities: [Imovel, Plano],
         synchronize: true,
       }),
     }),
     ImovelModule,
+    PlanoModule,
   ],
   controllers: [],
   providers: [],
