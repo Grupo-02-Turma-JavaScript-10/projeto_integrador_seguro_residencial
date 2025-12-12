@@ -19,6 +19,9 @@ export class ImovelService {
       where: {
         id,
       },
+      relations: {
+        plano: true,
+      },
     });
 
     if (!imovel)

@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Imovel } from '../../imovel/entities/imovel.entity';
 
 @Entity('tb_planos')
 export class Plano {
@@ -15,4 +16,7 @@ export class Plano {
     @IsNotEmpty()
     @Column({type: 'decimal', precision: 3, scale: 2, nullable: false})
     precoarea: string;
+
+    @OneToMany(() => Imovel, (imovel) => imovel.plano)
+    imovel: Imovel
 }
