@@ -4,18 +4,17 @@ import { Imovel } from '../../imovel/entities/imovel.entity';
 
 @Entity('tb_planos')
 export class Plano {
-    
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @IsNotEmpty()
-    @Column({length: 255, nullable: false})
-    nome: string;
+  @IsNotEmpty()
+  @Column({ length: 255, nullable: false })
+  nome: string;
 
-    @IsNotEmpty()
-    @Column({type: 'decimal', precision: 3, scale: 2, nullable: false})
-    precoarea: string;
+  @IsNotEmpty()
+  @Column({ type: 'decimal', precision: 3, scale: 2, nullable: false })
+  precoarea: string;
 
-    @OneToMany(() => Imovel, (imovel) => imovel.plano)
-    imovel: Imovel
+  @OneToMany(() => Imovel, (imovel) => imovel.plano)
+  imovel: Imovel;
 }

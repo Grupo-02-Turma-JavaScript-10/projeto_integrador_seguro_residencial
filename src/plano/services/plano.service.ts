@@ -16,7 +16,7 @@ export class PlanoService {
         imovel: true,
       },
     });
-  }
+  } 
 
   async delete(id: number): Promise<DeleteResult> {
     await this.findById(id);
