@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { ImovelService } from '../services/imovel.service';
 import { Imovel } from '../entities/imovel.entity';
+import { DeleteResult } from 'typeorm';
 
 @Controller('/imovel')
 export class ImovelController {
@@ -44,7 +45,7 @@ export class ImovelController {
   // NOVO MÉTODO DELETE
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
     return this.imovelService.delete(id);
   }
 }

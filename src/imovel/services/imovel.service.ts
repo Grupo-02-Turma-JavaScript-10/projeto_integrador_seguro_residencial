@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Imovel } from '../entities/imovel.entity';
 import { Repository } from 'typeorm';
+import { DeleteResult } from 'typeorm/browser';
 
 @Injectable()
 export class ImovelService {
@@ -36,18 +37,9 @@ export class ImovelService {
     return await this.imovelRepository.save(imovel);
   }
 
-  async delete(id: number): Promise<void> {
-    const imovel = await this.imovelRepository.findOne({
-      where: { id },
-    });
+  async delete(id: number): Promise<DeleteResult> {
+    await this.findById(id);
 
-    if (!imovel) {
-      throw new HttpException(
-        'Imóvel não encontrado!',
-        HttpStatus.NOT_FOUND,
-      );
-    }
-
-    await this.imovelRepository.delete(id);
+    return await this.imovelRepository.delete(id);
   }
 }
