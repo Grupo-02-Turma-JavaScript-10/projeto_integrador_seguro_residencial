@@ -26,4 +26,15 @@ export class ImovelService {
 
     return imovel;
   }
+
+  async create(imovel: Imovel): Promise<Imovel> {
+    // await this.planoService.findById(imovel.plano.id);
+    return await this.imovelRepository.save(imovel);
+  }
+
+  async update(imovel: Imovel): Promise<Imovel> {
+    await this.findById(imovel.id);
+    // await this.planoService.findById(imovel.plano.id);
+    return await this.imovelRepository.save(imovel);
+  }
 }
