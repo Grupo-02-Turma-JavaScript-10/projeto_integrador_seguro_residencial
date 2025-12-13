@@ -2,7 +2,7 @@ import { IsNotEmpty } from 'class-validator';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Imovel } from '../../imovel/entities/imovel.entity';
 
-@Entity('tb_planos')
+@Entity({ name: 'tb_planos' })
 export class Plano {
   @PrimaryGeneratedColumn()
   id: number;
@@ -16,5 +16,5 @@ export class Plano {
   precoArea: number;
 
   @OneToMany(() => Imovel, (imovel) => imovel.plano)
-  imovel: Imovel;
+  imovel: Imovel[];
 }
