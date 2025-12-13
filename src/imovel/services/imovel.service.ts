@@ -3,12 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Imovel } from '../entities/imovel.entity';
 import { Repository } from 'typeorm';
 import { DeleteResult } from 'typeorm/browser';
+import { PlanoService } from '../../plano/services/plano.service';
 
 @Injectable()
 export class ImovelService {
   constructor(
     @InjectRepository(Imovel)
     private imovelRepository: Repository<Imovel>,
+    private planoService: PlanoService,
   ) {}
 
   async findAll(): Promise<Imovel[]> {
@@ -32,11 +34,18 @@ export class ImovelService {
   }
 
   async create(imovel: Imovel): Promise<Imovel> {
+    await this.planoService.findById(imovel.plano.id);
+
+    imovel.valor = await this.calcularValor(imovel);
+
     return await this.imovelRepository.save(imovel);
   }
 
   async update(imovel: Imovel): Promise<Imovel> {
     await this.findById(imovel.id);
+
+    await this.planoService.findById(imovel.plano.id);
+
     return await this.imovelRepository.save(imovel);
   }
 
@@ -44,5 +53,16 @@ export class ImovelService {
     await this.findById(id);
 
     return await this.imovelRepository.delete(id);
+  }
+
+  // Métodos auxiliares
+
+  async calcularValor(imovel: Imovel): Promise<number> {
+    const plano = await this.planoService.findById(imovel.plano.id)
+    const valorBase = imovel.areaConstruida * plano.precoArea;
+    let valorFinal = imovel.areaConstruida > 200 ? valorBase + (valorBase * 0.15) : valorBase;
+
+    return valorFinal;
+    
   }
 }

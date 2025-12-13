@@ -23,6 +23,9 @@ export class PlanoService {
       where: {
         id,
       },
+      relations: {
+        imovel: true,
+      },
     });
 
     if (!plano)

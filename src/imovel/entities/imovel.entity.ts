@@ -24,12 +24,15 @@ export class Imovel {
   numero: number;
 
   @IsNotEmpty()
-  @Column({ length: 255, nullable: false })
+  @Column({ name: 'tipo_imovel', length: 255, nullable: false })
   tipoImovel: string;
 
   @IsNotEmpty()
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
+  @Column({ name: 'area_construida', type: 'decimal', precision: 10, scale: 2, nullable: false })
   areaConstruida: number;
+  
+  @Column({type: 'decimal', precision: 7, scale: 2, nullable:true})
+  valor: number;
 
   @ManyToOne(() => Plano, (plano) => plano.imovel, {
     onDelete: 'CASCADE',
