@@ -2,12 +2,14 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { DeleteResult, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Plano } from '../entities/plano.entity';
+import { LoggerService } from '../../logger/logger.service';
 
 @Injectable()
 export class PlanoService {
   constructor(
     @InjectRepository(Plano)
     private planoRepository: Repository<Plano>,
+    private loggerService: LoggerService,
   ) {}
 
   async findAll(): Promise<Plano[]> {
@@ -28,23 +30,45 @@ export class PlanoService {
       },
     });
 
-    if (!plano)
+    if (!plano) {
+      await this.loggerService.erro(`Plano id ${id} não encontrado`);
       throw new HttpException('Plano não encontrado!', HttpStatus.NOT_FOUND);
+    }
 
     return plano;
   }
 
   async create(plano: Plano): Promise<Plano> {
-    return await this.planoRepository.save(plano);
+    const salvaPlano = await this.planoRepository.save(plano);
+
+    const stringPlano = JSON.stringify(plano);
+
+    await this.loggerService.log(`NOVO PLANO CRIADO ${stringPlano}`);
+
+    return salvaPlano;
   }
 
   async update(plano: Plano): Promise<Plano> {
     await this.findById(plano.id);
-    return await this.planoRepository.save(plano);
+
+    const atualizaPlano = await this.planoRepository.save(plano);
+
+    const stringPlano = JSON.stringify(plano);
+
+    await this.loggerService.log(`PLANO ATUALIZADO ${stringPlano}`);
+
+    return atualizaPlano;
   }
 
   async delete(id: number): Promise<DeleteResult> {
-    await this.findById(id);
-    return await this.planoRepository.delete(id);
+    const plano = await this.findById(id);
+
+    const deletaPlano = await this.planoRepository.delete(id);
+
+    const stringPlano = JSON.stringify(plano);
+
+    await this.loggerService.log(`PLANO APAGADO DO REGISTRO: ${stringPlano}`);
+
+    return deletaPlano;
   }
 }

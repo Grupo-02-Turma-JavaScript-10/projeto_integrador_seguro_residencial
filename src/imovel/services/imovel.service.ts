@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Imovel } from '../entities/imovel.entity';
 import { Repository, DeleteResult } from 'typeorm';
 import { PlanoService } from '../../plano/services/plano.service';
+import { LoggerService } from '../../logger/logger.service';
 
 @Injectable()
 export class ImovelService {
@@ -10,6 +11,7 @@ export class ImovelService {
     @InjectRepository(Imovel)
     private imovelRepository: Repository<Imovel>,
     private planoService: PlanoService,
+    private loggerService: LoggerService,
   ) {}
 
   async findAll(): Promise<Imovel[]> {
@@ -30,8 +32,11 @@ export class ImovelService {
       },
     });
 
-    if (!imovel)
+    if (!imovel) {
+      await this.loggerService.erro(`Imóvel id ${id} não encontrado`);
+
       throw new HttpException('Imóvel não encontrado!', HttpStatus.NOT_FOUND);
+    }
 
     return imovel;
   }
@@ -41,7 +46,13 @@ export class ImovelService {
 
     imovel.valor = await this.calcularValor(imovel);
 
-    return await this.imovelRepository.save(imovel);
+    const salvaImovel = await this.imovelRepository.save(imovel);
+
+    const stringImovel = JSON.stringify(imovel);
+
+    await this.loggerService.log(`NOVO IMÓVEL CRIADO ${stringImovel}`);
+
+    return salvaImovel;
   }
 
   async update(imovel: Imovel): Promise<Imovel> {
@@ -49,13 +60,25 @@ export class ImovelService {
 
     await this.planoService.findById(imovel.plano.id);
 
-    return await this.imovelRepository.save(imovel);
+    const atualizaImovel = await this.imovelRepository.save(imovel);
+
+    const stringImovel = JSON.stringify(imovel);
+
+    await this.loggerService.log(`IMÓVEL ATUALIZADO ${stringImovel}`);
+
+    return atualizaImovel;
   }
 
   async delete(id: number): Promise<DeleteResult> {
-    await this.findById(id);
+    const imovel = await this.findById(id);
 
-    return await this.imovelRepository.delete(id);
+    const stringImovel = JSON.stringify(imovel);
+
+    const deletaImovel = await this.imovelRepository.delete(id);
+
+    await this.loggerService.log(`IMÓVEL APAGADO DO REGISTRO ${stringImovel}`);
+
+    return deletaImovel;
   }
 
   async calcularValor(imovel: Imovel): Promise<number> {

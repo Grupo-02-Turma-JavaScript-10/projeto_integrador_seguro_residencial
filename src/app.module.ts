@@ -5,6 +5,7 @@ import { Imovel } from './imovel/entities/imovel.entity';
 import { ImovelModule } from './imovel/imovel.module';
 import { PlanoModule } from './plano/plano.module';
 import { Plano } from './plano/entities/plano.entity';
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { Plano } from './plano/entities/plano.entity';
     }),
     ImovelModule,
     PlanoModule,
+    LoggerModule,
   ],
   controllers: [],
   providers: [],
