@@ -12,7 +12,13 @@ export class Plano {
   nome: string;
 
   @IsNotEmpty()
-  @Column({ name: 'preco_area', type: 'decimal', precision: 7, scale: 2, nullable: false })
+  @Column({
+    name: 'preco_area',
+    type: 'decimal',
+    precision: 7,
+    scale: 2,
+    nullable: false,
+  })
   precoArea: number;
 
   @OneToMany(() => Imovel, (imovel) => imovel.plano)

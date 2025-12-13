@@ -59,11 +59,11 @@ export class ImovelService {
   }
 
   async calcularValor(imovel: Imovel): Promise<number> {
-    const plano = await this.planoService.findById(imovel.plano.id)
-    const valorBase = imovel.areaConstruida * plano.precoArea;
-    let valorFinal = imovel.areaConstruida > 200 ? valorBase + (valorBase * 0.15) : valorBase;
+    const plano = await this.planoService.findById(imovel.plano.id);
+    const valorBase: number = imovel.areaConstruida * plano.precoArea;
+    const valorFinal: number =
+      imovel.areaConstruida > 200 ? valorBase + valorBase * 0.15 : valorBase;
 
     return valorFinal;
-    
   }
 }

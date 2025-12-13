@@ -28,10 +28,16 @@ export class Imovel {
   tipoImovel: string;
 
   @IsNotEmpty()
-  @Column({ name: 'area_construida', type: 'decimal', precision: 10, scale: 2, nullable: false })
+  @Column({
+    name: 'area_construida',
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    nullable: false,
+  })
   areaConstruida: number;
-  
-  @Column({type: 'decimal', precision: 7, scale: 2, nullable:true})
+
+  @Column({ type: 'decimal', precision: 7, scale: 2, nullable: true })
   valor: number;
 
   @ManyToOne(() => Plano, (plano) => plano.imovel, {
