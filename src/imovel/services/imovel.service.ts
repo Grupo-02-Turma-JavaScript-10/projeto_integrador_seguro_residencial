@@ -58,8 +58,6 @@ export class ImovelService {
     return await this.imovelRepository.delete(id);
   }
 
-  // Métodos auxiliares
-
   async calcularValor(imovel: Imovel): Promise<number> {
     const plano = await this.planoService.findById(imovel.plano.id)
     const valorBase = imovel.areaConstruida * plano.precoArea;
