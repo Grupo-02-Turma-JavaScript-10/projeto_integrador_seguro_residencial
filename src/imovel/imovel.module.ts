@@ -9,5 +9,6 @@ import { PlanoModule } from '../plano/plano.module';
   imports: [TypeOrmModule.forFeature([Imovel]), PlanoModule],
   controllers: [ImovelController],
   providers: [ImovelService],
+  exports: [],
 })
 export class ImovelModule {}

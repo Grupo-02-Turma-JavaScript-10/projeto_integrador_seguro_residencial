@@ -1,8 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Imovel } from '../entities/imovel.entity';
-import { Repository } from 'typeorm';
-import { DeleteResult } from 'typeorm/browser';
+import { Repository, DeleteResult } from 'typeorm';
 
 @Injectable()
 export class ImovelService {
@@ -12,7 +11,11 @@ export class ImovelService {
   ) {}
 
   async findAll(): Promise<Imovel[]> {
-    return await this.imovelRepository.find();
+    return await this.imovelRepository.find({
+      relations: {
+        plano: true,
+      },
+    });
   }
 
   async findById(id: number): Promise<Imovel> {

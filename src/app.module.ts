@@ -12,7 +12,7 @@ import { Plano } from './plano/entities/plano.entity';
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
-      imports: [],
+      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: configService.get<string>('DB_TYPE') as 'mysql',
