@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { DeleteResult, Repository } from 'typeorm';
+import { DeleteResult, ILike, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Plano } from '../entities/plano.entity';
 
@@ -32,6 +32,14 @@ export class PlanoService {
       throw new HttpException('Plano não encontrado!', HttpStatus.NOT_FOUND);
 
     return plano;
+  }
+
+  async findAllByNome(nome: string): Promise<Plano[]> {
+    return await this.planoRepository.find({
+      where: {
+        nome: ILike(`%${nome}%`),
+      },
+    });
   }
 
   async create(plano: Plano): Promise<Plano> {

@@ -23,6 +23,9 @@ export class Imovel {
   @Column({ type: 'int', nullable: false })
   numero: number;
 
+  @Column({ length: 255, nullable: true })
+  complemento: string;
+
   @IsNotEmpty()
   @Column({ name: 'tipo_imovel', length: 255, nullable: false })
   tipoImovel: string;

@@ -28,6 +28,12 @@ export class PlanoController {
     return this.planoService.findById(id);
   }
 
+  @Get('/nome/:nome')
+  @HttpCode(HttpStatus.OK)
+  findAllByNome(@Param('nome') nome: string): Promise<Plano[]> {
+    return this.planoService.findAllByNome(nome);
+  }
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() plano: Plano): Promise<Plano> {
