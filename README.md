@@ -3,13 +3,13 @@
 
 ---
 
-## 📌 Descrição Geral
+# 📌 Descrição Geral
 O **SeguraHome** é uma API de gerenciamento de cadastro de imóveis e gerenciamento de planos voltado para empresas que atuam no ramo dos Seguros Residenciais. A aplicação permite o Registro dos Imóveis Segurados e ligação aos Planos de Seguro contratados para os mesmos, possibilitando consultar, editar e excluir informações - Tanto sobre os Imóveis Segurados quanto sobre os Planos oferecidos - sempre que necessário.
 
 ---
 
-## 🧩 Entidades e Atributos
-# 🏡 Entidade **Imóvel** 
+# 🧩 Entidades e Atributos
+## 🏡 Entidade **Imóvel** 
 A entidade principal do sistema é o **Imóvel** cadastrado pela empresa. Os atributos definidos além do ID são:
 
 - **cep** – CEP da área onde o Imóvel se localiza  
@@ -26,8 +26,7 @@ Esses atributos foram escolhidos por representarem informações essenciais para
 
 ---
 
-## 🧩 Entidades e Atributos
-# 🤝 Entidade **Plano**
+## 🤝 Entidade **Plano**
 A entidade  **Plano** é criada e gerenciada pela empresa. Os atributos definidos além do ID são:
 
 - **nome** – Nome do plano  
@@ -57,7 +56,7 @@ Métodos que atendem a necessidades específicas de cada recurso (lógica de neg
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+# 🛠️ Tecnologias Utilizadas
 ### **Backend e Banco de Dados**
 - **TypeScript** – Linguagem utilizada no desenvolvimento do backend, garantindo tipagem estática e melhor manutenção do código.  
 - **TypeORM** – ORM utilizado para mapear entidades, gerenciar migrations e facilitar a comunicação com o banco de dados.  
