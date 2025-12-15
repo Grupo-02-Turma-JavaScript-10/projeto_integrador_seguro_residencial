@@ -49,6 +49,8 @@ export class ImovelService {
 
     await this.planoService.findById(imovel.plano.id);
 
+    imovel.valor = await this.calcularValor(imovel);
+
     return await this.imovelRepository.save(imovel);
   }
 
