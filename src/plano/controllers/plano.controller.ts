@@ -8,6 +8,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
 } from '@nestjs/common';
 import { Plano } from '../entities/plano.entity';
 import { PlanoService } from '../services/plano.service';
@@ -38,6 +39,12 @@ export class PlanoController {
   @HttpCode(HttpStatus.CREATED)
   create(@Body() plano: Plano): Promise<Plano> {
     return this.planoService.create(plano);
+  }
+
+  @Put()
+  @HttpCode(HttpStatus.OK)
+  update(@Body() plano: Plano): Promise<Plano> {
+    return this.planoService.update(plano);
   }
 
   @Delete('/:id')
